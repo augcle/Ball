@@ -6,7 +6,7 @@
 
 #define WIDTH 400
 #define HEIGHT 400
-#define TITLE "Balls and their admirers"
+#define TITLE "Ball"
 #define BALL_COUNT 100
 #define FPS 60
 #define VEL_MAX 5
@@ -19,33 +19,33 @@ Color COLORS[] = {
     DARKBLUE, PURPLE, VIOLET, DARKPURPLE, BEIGE, BROWN, DARKBROWN,
 };
 
-typedef struct Ball {
+typedef struct Ball { // This is what a ball should have of data
     int posx;
     int posy;
     int velx;
     int vely;
     int radius;
     Color color;
-    struct Ball *follows;
+    struct Ball *follows; // Notice we used nested structs
 } Ball;
 
 Ball balls[BALL_COUNT];
 
-Ball *init_ball_random(Ball *p) {
+Ball *init_ball_random(Ball *p) { // Lets generate a ball
         p->posx = rand() % WIDTH;
         p->posy = rand() % HEIGHT;
         p->velx = rand() % VEL_MAX;
         p->vely = rand() % VEL_MAX;
-        p->radius = rand() % (RADIUS_MAX - RADIUS_MIN + 1) + RADIUS_MIN;
-        p->color = COLORS[rand() % 21];
-        p->follows = NULL;
+        p->radius = rand() % (RADIUS_MAX - RADIUS_MIN + 1) + RADIUS_MIN; // This is used to generate a radius within the Rmin and Rmax
+        p->color = COLORS[rand() % 21]; // Choose a color out of the 20. 
+        p->follows = NULL; // We need to assign it a null pointer right now
         return p;
 }
 
 void init_balls_random() { // This is our main function for generating the balls.
     srand(time(NULL)); // We need to seed it with time, for it to be random. 
 
-    Ball *place = malloc(sizeof(Ball)); 
+    Ball *place = malloc(sizeof(Ball)); // We need to assign the memory to the struct. 
 
     for (int i; i<BALL_COUNT; i++) { // We loop through every single variable in the structure (0-99)
         place = &balls[i]; //And first we assign the structure variables memory adress (ie. 0, 1, 2 and so forth) to a placeholder variable
